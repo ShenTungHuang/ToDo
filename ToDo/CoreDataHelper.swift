@@ -16,67 +16,57 @@ class CoreDataHelper
     static let persistentContainer = appDelegate.persistentContainer
     static let managedContext = persistentContainer.viewContext
     
-    static func newNote() -> Note
-    {
+    static func newNote() -> Note {
         let note = NSEntityDescription.insertNewObject(forEntityName: "Note", into: managedContext) as! Note
         return note
     }
     
-    static func newComplete() -> Complete
-    {
+    static func newComplete() -> Complete {
         let note = NSEntityDescription.insertNewObject(forEntityName: "Complete", into: managedContext) as! Complete
         return note
     }
     
-    static func saveNote()
-    {
-        do
-        {
+    static func saveNote() {
+        do {
             try managedContext.save()
         }
-        catch let error as NSError
-        {
+            
+        catch let error as NSError {
             print("Could not save \(error)")
         }
     }
     
-    static func delete(note: Note)
-    {
+    static func delete(note: Note) {
         managedContext.delete(note)
         saveNote()
     }
     
-    static func delete(note: Complete)
-    {
+    static func delete(note: Complete) {
         managedContext.delete(note)
         saveNote()
     }
     
-    static func retrieveNotes() -> [Note]
-    {
+    static func retrieveNotes() -> [Note] {
         let fetchRequest = NSFetchRequest<Note>(entityName: "Note")
-        do
-        {
+        do {
             let results = try managedContext.fetch(fetchRequest)
             return results
         }
-        catch let error as NSError
-        {
+            
+        catch let error as NSError {
             print("Could not fetch \(error)")
         }
         return []
     }
     
-    static func retrieveComplete() -> [Complete]
-    {
+    static func retrieveComplete() -> [Complete] {
         let fetchRequest = NSFetchRequest<Complete>(entityName: "Complete")
-        do
-        {
+        do {
             let results = try managedContext.fetch(fetchRequest)
             return results
         }
-        catch let error as NSError
-        {
+            
+        catch let error as NSError {
             print("Could not fetch \(error)")
         }
         return []

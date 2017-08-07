@@ -8,39 +8,29 @@
 
 import UIKit
 
-class DisplayNoteViewController: UIViewController
-{
+class DisplayNoteViewController: UIViewController {
     var note: Note?
     var complete: Complete?
     
     @IBOutlet weak var noteTitleTextField: UITextField!
     @IBOutlet weak var noteContentTextView: UITextView!
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let identifier = segue.identifier
-        {
-            if identifier == "cancel"
-            {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            if identifier == "cancel" {
                 print("Cancel button tapped")
-            }
-            else if identifier == "save"
-            {
+            } else if identifier == "save" {
                 // if note exists, update title and content
-                if ( note == nil )
-                {
+                if ( note == nil ) {
                     let note = self.note ?? CoreDataHelper.newNote()
                     note.title = noteTitleTextField.text ?? ""
                     note.content = noteContentTextView.text ?? ""
                     note.modificationTime = Date().convertToString()// as NSDate
-                }
-                else if ( complete == nil )
-                {
+                } else if ( complete == nil ) {
                     let note = self.complete ?? CoreDataHelper.newComplete()
                     note.title = noteTitleTextField.text ?? ""
                     note.content = noteContentTextView.text ?? ""
@@ -53,23 +43,17 @@ class DisplayNoteViewController: UIViewController
         }
     }
     
-    override func viewWillAppear(_ animated: Bool)
-    {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // 1
-        if let note = note
-        {
+        if let note = note {
             // 2
             noteTitleTextField.text = note.title
             noteContentTextView.text = note.content
-        }
-        else if let complete = complete
-        {
+        } else if let complete = complete {
             noteTitleTextField.text = complete.title
             noteContentTextView.text = complete.content
-        }
-        else
-        {
+        } else {
             // 3
             noteTitleTextField.text = ""
             noteContentTextView.text = ""

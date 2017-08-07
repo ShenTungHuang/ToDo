@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ListNotesTableViewCell: UITableViewCell
-{
+class ListNotesTableViewCell: UITableViewCell {
+    
     @IBOutlet weak var noteTitleLabel: UILabel!
     @IBOutlet weak var noteModificationTimeLabel: UILabel!
     @IBOutlet weak var notecontentlabel: UILabel!
@@ -17,9 +17,9 @@ class ListNotesTableViewCell: UITableViewCell
     
     var tapAction: ((UITableViewCell) -> Void)?
     
-    @IBAction func completeList(_ sender: Any)
-    {
+    @IBAction func completeList(_ sender: Any) {
         tapAction?(self)
         print("Press Complete button")
     }
+    
 }
